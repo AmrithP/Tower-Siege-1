@@ -2,21 +2,22 @@ class Box{
   constructor(x, y) {
       var options = {
 
-          restitution: 0.9,
-          friction: 0.1,
-          density: 0.1,
-          isStatic: false
-
+        'restitution':0.8,
+            'friction':1.0,
+            'density':1.0
       }
       this.body = Bodies.rectangle(x, y, 20, 35, options);
       this.width = 20;
       this.height = 35;
-      this.visibility = 255;
+      this.Visibility = 255;
       World.add(world, this.body);
     }
+
+    
+
     display(){
 
-      if(this.body.speed<6){
+      if(this.body.speed<3){
 
       var pos =this.body.position;
       var angle = this.body.angle;
@@ -31,8 +32,8 @@ class Box{
 
       World.remove(world,this.body);
       push();
-      this.visibilty = this.visibilty-1;
-      tint(255,this.visibilty);
+      this.Visibilty = this.Visibilty-5;
+      tint(255,this.Visibilty);
       pop();
 
       }
@@ -40,4 +41,18 @@ class Box{
       
 
     }
-}
+
+
+    score(){
+
+      if(this.Visibilty = this.Visibilty-5){
+  
+        score++;
+  
+      }
+  
+   } 
+
+    
+
+};

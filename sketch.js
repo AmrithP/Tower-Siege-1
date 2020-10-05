@@ -1,12 +1,15 @@
 //Namespaces are created
 
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Body = Matter.Body;
 const Constraint = Matter.Constraint;
 
 //Variables are declared
+
+var engine, world;
+
+var backgroundImg;
 
 var ground, plat1, plat2;
 
@@ -20,11 +23,13 @@ var box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12, b
 
 var box17, box18, box19, box20, box21, box22, box23, box24, box25;
 
-var engine, world;
-
 //Image variables
 
-var polygonIMG, bIMG, textIMG;
+var polygonIMG, textIMG;
+
+var dateTime;
+
+var score = 0;
 
 
 function preload(){
@@ -32,8 +37,10 @@ function preload(){
   //Images are loaded
 
   polygonIMG = loadImage("polygon.png");
-  bIMG = loadImage("b.jpg");
+  //bIMG = loadImage("b.jpg");
   textIMG = loadImage("text.png");
+
+  getTime();
 
 
 }
@@ -116,13 +123,19 @@ function setup() {
 
   slingshot = new Slingshot(this.polygon,{x:200,y:200});
 
-  Engine.run(engine);
 
 }
 
 function draw() {
 
-  background(bIMG);  
+  if(backgroundImg){
+
+    background(backgroundImg);
+
+  }  
+
+  Engine.update(engine);
+
 
   //All of our objects, texts and images get displayed
 
@@ -132,6 +145,12 @@ function draw() {
   plat2.display();
 
   image(textIMG,50,10,200,200);
+
+
+  imageMode(CENTER);
+  image(polygonIMG,polygon.position.x,polygon.position.y,40,40);
+  
+
   
   fill("pink")
   box1.display();
@@ -174,10 +193,41 @@ function draw() {
 
   slingshot.display();
 
-  imageMode(CENTER);
-  image(polygonIMG,polygon.position.x,polygon.position.y,40,40);
 
-  drawSprites();
+
+
+
+  box1.score();
+  box2.score();
+  box3.score();
+  box4.score();
+  box5.score();
+  box6.score();  
+  box7.score();
+  box8.score();
+  box9.score();
+  box10.score();
+  box11.score();
+  box12.score();
+  box13.score();
+  box14.score();
+  box15.score();
+  box16.score();
+  box17.score();
+  box18.score();
+  box19.score();
+  box20.score();
+  box21.score();
+  box22.score();
+  box23.score();
+  box24.score();
+  box25.score();
+  
+
+  fill("grey")
+  text(score, 750, 40);
+
+
 
 }
 
@@ -205,5 +255,36 @@ function keyPressed(){
 		slingshot = new Slingshot(this.polygon,{x:200,y:200});
 
 	}
+
+}
+
+
+async function getTime(){
+
+  var response = await fetch("http://worldtimeapi.org/api/timezone/EST")
+
+  var responseJson = await response.json();
+
+  dateTime = responseJson.datetime;
+
+
+  var hour = dateTime.slice(11,13);
+
+
+
+  if(hour>=06 && hour<=19){
+
+      bg = "b.jpg";
+  
+
+  } else {
+
+      bg = "b2.jpg";
+
+  }
+
+  backgroundImg = loadImage(bg);
+
+
 
 }
